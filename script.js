@@ -8,10 +8,11 @@ const moviesGrid = document.querySelector('.movies-grid');
 
 const popup_container = document.querySelector('.popup-container')
 
-
+// 4) ეს addClickEffects ფუნქცია აწვდის 20ვე ფილმის კარტას, 20ივეს გადაუყვება და ამაგრებს click effect-ს
 function addClickEffects(cards){
     cards.forEach(card => {
-        card.addEventListener('click', () => openDetails(card))
+        card.addEventListener('click', () => openDetails(card)) //5)ეს გამოიძახება ფილმზე დაკლიკებისას, ინახავს ფილმისid 
+        //და გადავყავართ Details HTML-ზე
     })
 }
 
@@ -66,16 +67,17 @@ async function addSearchResults () {
 
 
 
-getTrendings()
+getTrendings() // 2) ამ ფუნქციას მოაქვს 20 ტრენდული ფილმიAPIდან Jasonის სახით და პარსავს Js-ს ობიექტად
 async function getTrendings () {
     const resp = await fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
     const respData = await resp.json()
     return respData.results
 }
 
+//  3) მერე addTrendingsფუნქცია 20-ივე js ობიექტს გადაუყვება და ოცივესთვის შექმნის 20-ივე div-ს htmlში movie grid-ში
 async function addTrendings () {
 
-    const data = await getTrendings()
+    const data = await getTrendings() 
     title.innerText = `Trending`;
 
     moviesGrid.innerHTML = data.slice().map(e => {
@@ -114,4 +116,4 @@ function savePicked (id) {
 }
 
 addTrendings()
-
+// 1) addTrending ფუნქცია ირთვება მერე და ეს იძახებს get trending ფუნქციას

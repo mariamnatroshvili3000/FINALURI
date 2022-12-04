@@ -14,8 +14,8 @@ async function fetchFavourites(){
         addFavouritesToDomFromLs(movie);// მერე ირთვება ეს ფუნქცია, ყველა ფილმისთვის ქმნის html-ს და ცარიელ movies gridში ამატებს
         movies.push(movie); 
     }
-    //მერე ყველა რომ ჩაამატებს htmlში ყველა ფილმისთვის განკუთვნილი card გამოაქვს და მათზე იძახებს Add click effect ფუნქციას,
-    //ეგ ფუნქცია ამატებს რომ ყოველ ფილმზე დაკლიკებისას გამოიძახოს open details ფუნქცია.
+    //მერე ყველას რომ ჩაამატებს htmlში ყველა ფილმისთვის განკუთვნილი card გამოაქვს და მათზე იძახებს Add click effect ფუნქციას,
+    //ეს ფუნქცია ამატებს რომ ყოველ ფილმზე დაკლიკებისას გამოიძახოს open details ფუნქცია.
     const cards = document.querySelectorAll('.card');
 
      addClickEffects(cards);
