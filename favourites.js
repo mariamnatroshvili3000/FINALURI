@@ -3,16 +3,19 @@ const image_path = `https://image.tmdb.org/t/p/w1280`;
 
 const main_grid = document.querySelector('.movies-grid');
 
+//ამ fetchFavourites ფუნქციას მოაქვს ყველა იმ ფილმების id რომელიც გვავქს ჩანიშნული.
 async function fetchFavourites(){
     main_grid.innerHTML='';
-    const movies_LS=await getLs();
+    const movies_LS=await getLs(); //ამას მოაქვსს ჩანიშნული ფილბები ls-დან
     const movies=[];
     for(let i=0; i<movies_LS.length; i++){
         const movie_id=movies_LS[i];
-        let movie=await getMovieById(movie_id);
-        addFavouritesToDomFromLs(movie);
+        let movie=await getMovieById(movie_id); //გადაუყვება ფილმების id-ებს რომლებიც ფავებშია და APIდან მოაქვს ინფო ფილმებზე
+        addFavouritesToDomFromLs(movie);// მერე ირთვება ეს ფუნქცია, ყველა ფილმისთვის ქმნის html-ს და ცარიელ movies gridში ამატებს
         movies.push(movie); 
     }
+    //მერე ყველა რომ ჩაამატებს htmlში ყველა ფილმისთვის განკუთვნილი card გამოაქვს და მათზე იძახებს Add click effect ფუნქციას,
+    //ეგ ფუნქცია ამატებს რომ ყოველ ფილმზე დაკლიკებისას გამოიძახოს open details ფუნქცია.
     const cards = document.querySelectorAll('.card');
 
      addClickEffects(cards);
@@ -51,15 +54,16 @@ function addFavouritesToDomFromLs(movie){
 
 }
 
+
 function addClickEffects(cards){
     cards.forEach(card => {
         card.addEventListener('click', () => openDetails(card))
     })
 }
-
+//Open detailsფუნქციაში გამოძახებულია saved picked რომელიც ინახავს იმ ფილის id-ის რმელსაც დააჭირე
 function openDetails(card){
     const id = card.getAttribute('data-id');
-    savePicked(id);
+    savePicked(id);//open details ფუნქცია ინახავს იმ ფილმის id-ს რომელსაც დავაკლიკებთ, მერე გადავყავართ details htmlში
     window.location.replace("details.html");
 }
 function savePicked (id) {

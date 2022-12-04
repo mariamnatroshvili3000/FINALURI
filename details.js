@@ -28,12 +28,13 @@ async function getTrailer (id) {
 async function showDetails () {
     popup_container.classList.add('show-popup');
     
-    const movie_id = getChosenId();
-    const movie = await getMovieById(movie_id);
-    const movie_trailer = await getTrailer(movie_id);
+    const movie_id = getChosenId(); //მოაქვს ბრაუზერის მეხსიერებიდან იმ ფილმის ID რომელიც ჩვენ მოვნიშნეთ
+    const movie = await getMovieById(movie_id); //ამას APIდან მოაქვს ფილმის ინფო
+    const movie_trailer = await getTrailer(movie_id); //მოაქვს ტრაილერი
     popup_container.style.background = `linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, 1)), url(${image_path + movie.poster_path})`
 
-    popup_container.innerHTML = `
+    //ამ ჯანდაბას popup  კონტეინერში ამატებს ახალ დივს რომელშიც არის ამ ფილმის დეტალური აღწერა
+    popup_container.innerHTML = ` 
             <div class="content">
                 <div class="left">
                     <div class="poster-img">
@@ -87,13 +88,16 @@ async function showDetails () {
             </div>
     `;
 
-
+//ფავორიტები მოაქვს გულის icon html-დან, 
     const heart_icon = popup_container.querySelector('.heart-icon');
-    const movie_ids = getFromLs();
+    const movie_ids = getFromLs(); //browserის მეხსიერებიდან ამოაქვს ყველა იმ ფილმის id რომელიც favorite-ბად გვაქვს ჩამიშნული
+    
+   
+    //ამოღებული ფილმების id-ებს გადაუყვება და ეძებს გარკვეული ფილმი არის თუ არა ჩამატებული ფავორიტებში
     for(let i = 0; i <= movie_ids.length; i++) {
         if (movie_ids[i] == movie_id) heart_icon.classList.add('change-color')
-    }
-
+    } 
+//გულის აიქონზე ამატებს event listener-ს, თუ ეს ფილმის დამატებულია ფავებში მაშინ წაშლის
     heart_icon.addEventListener('click', () => {
         if(heart_icon.classList.contains('change-color')) {
             removeLs(movie_id);
@@ -106,15 +110,17 @@ async function showDetails () {
 
     });
 };
+//ლოკალ სტორეჯიდან მოქვს
 function getFromLs(){
     const movie_ids = JSON.parse(localStorage.getItem('movie-id'))
     return movie_ids === null ? [] : movie_ids
 }
-
+//ლოკალში ამატებს
 function addToLs (id) {
     const movie_ids = getFromLs()
     localStorage.setItem('movie-id', JSON.stringify([...movie_ids, id]))
 }
+//შლის ლოკალიდან
 function removeLs (id) {
     const movie_ids = getFromLs()
     localStorage.setItem('movie-id', JSON.stringify(movie_ids.filter(e => e !== id)))

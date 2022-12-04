@@ -17,7 +17,8 @@ function addClickEffects(cards){
 
 
 
-
+//search button-ზე დამატებულია addEvenListener ფუნქციაა, რომელიც იძახებს Add search Results ფუნქციას
+//
 searchButton.addEventListener('click', addSearchResults);
 
 
@@ -26,12 +27,13 @@ async function getSearchResults (key) {
     const respData = await resp.json();
     return {data: respData.results, searchKey: key}
 }
+
 async function addSearchResults () {
-    if(!searchInput.value) {
+    if(!searchInput.value) { //if search value ამოწმებს არის თუ არა ჩაწერილი search-ში რამე, თუ არა ტრენდულ ფილმებს ამოყრის
         addTrendings();
         return;
     }
-    const {data, searchKey} = await getSearchResults(searchInput.value)
+    const {data, searchKey} = await getSearchResults(searchInput.value)//თუ რამეა ცაწერილი getSearchResults ვიყენებთ
 
     title.innerText = `Results for '${searchKey}':`;
     moviesGrid.innerHTML = data.map(e => {
