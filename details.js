@@ -97,7 +97,7 @@ async function showDetails () {
     for(let i = 0; i <= movie_ids.length; i++) {
         if (movie_ids[i] == movie_id) heart_icon.classList.add('change-color')
     } 
-//გულის აიქონზე ამატებს event listener-ს, თუ ეს ფილმის დამატებულია ფავებში მაშინ წაშლის
+//გულის აიქონზე ამატებს event listener-ს, თუ ეს ფილმი დამატებულია ფავებში მაშინ წაშლის
     heart_icon.addEventListener('click', () => {
         if(heart_icon.classList.contains('change-color')) {
             removeLs(movie_id);
